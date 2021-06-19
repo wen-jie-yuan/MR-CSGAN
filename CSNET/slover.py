@@ -2,7 +2,7 @@ import torch
 import pandas as pd
 from math import log10
 from CSNET.CSNet import CSNET
-from utils import progress_bar
+from utils.utility import progress_bar
 import torch.backends.cudnn as cudnn
 
 results = {'loss': [], 'psnr': []}
@@ -38,9 +38,9 @@ class CSNET_Trainer(object):
 
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
 
-        self.scheduler = torch.optim.lr_scheduler.MultiStepLR(self.optimizer,
-                                                              milestones=[300, 600, 900, 1200, 1500, 1800, 2100, 2400,
-                                                                          2700], gamma=0.5)
+        # self.scheduler = torch.optim.lr_scheduler.MultiStepLR(self.optimizer,
+        #                                                       milestones=[1000], gamma=0.1)
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=10, gamma=0.5)
 
     def train(self):
         self.model.train()
@@ -48,7 +48,7 @@ class CSNET_Trainer(object):
         for batch_num, (data, target) in enumerate(self.training_loader):
             data, target = data.to(self.device), target.to(self.device)
             self.optimizer.zero_grad()
-            loss = self.criterion(self.model(data), data)
+            loss = self.criterionMSE(self.model(data), data)
             train_loss += loss.item()
             loss.backward()
             self.optimizer.step()
@@ -76,13 +76,12 @@ class CSNET_Trainer(object):
             results['loss'].append(loss)
             avg_psnr = self.test()
             results['psnr'].append(avg_psnr)
-            self.scheduler.step(epoch)
-            if epoch >= 1500:
-                model_out_path = self.output_path + "/model_path" + str(epoch) + ".pth"
-                torch.save(self.model, model_out_path)
+            self.scheduler.step()
+            model_out_path = self.output_path + "/model_path" + str(epoch) + ".pth"
+            torch.save(self.model, model_out_path)
         out_path = 'data_results/'
         data_frame = pd.DataFrame(
             data={'Loss': results['loss'], 'PSNR': results['psnr']},
             index=range(1, epoch + 1))
-        data_frame.to_csv(out_path + 'MS_CSNet_' + 'train_results_' + str(self.sampling_rate) + '.csv',
+        data_frame.to_csv(out_path + 'MR_CSNet_' + 'train_results_' + str(self.sampling_rate) + '.csv',
                           index_label='Epoch')
