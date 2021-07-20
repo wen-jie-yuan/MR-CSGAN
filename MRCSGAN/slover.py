@@ -51,6 +51,8 @@ class CSGAN_Trainer(object):
         self.netG.weight_init(mean=0.0, std=0.2)
         self.netD.weight_init(mean=0.0, std=0.2)
         torch.manual_seed(self.seed)
+        # the other way, load model
+        # self.netG = torch.load('./saved_model/mse/10.pth')
 
         if self.CUDA:
             torch.cuda.manual_seed(self.seed)
