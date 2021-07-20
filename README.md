@@ -1,5 +1,7 @@
 # MR-CSGAN  
-This project is the source code of the thesis MR-CSGAN.   
+This project is the source code of the thesis MR-CSGAN. 
+## results show：
+[image](res_images/fig2.png)
 You can download the dataset required for training in the [DIV2K](https://data.vision.ee.ethz.ch/cvl/DIV2K/)  
 我们使用的python包的版本为：  
   1. python 3.6  
