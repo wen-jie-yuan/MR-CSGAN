@@ -2,7 +2,8 @@
 This project is the source code of the thesis MR-CSGAN. 
 ## results show：
 ![image](res_images/fig2.png)
-You can download the train and test dataset from [data密码：2uvs](https://pan.baidu.com/s/1ooh9He3cZX2xHwTjr6-1Vg)  
+You can download the train and test dataset from [baidu disk passward：2uvs](https://pan.baidu.com/s/1ooh9He3cZX2xHwTjr6-1Vg)  
+Then put data into dataset.
 我们使用的python包的版本为：  
   1. python 3.6  
   2. torch1.7.1+cuda11.0  
