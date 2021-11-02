@@ -15,6 +15,8 @@ The version of the python package we use is：
 
 you can use the model we provide for testing.   
 
+[The paper link](https://link.springer.com/article/10.1007%2Fs00371-021-02288-y) 
+
 if you want to cite this papaer, please use:
 
 Tian, J., Yuan, W. & Tu, Y. Image compressed sensing using multi-scale residual generative adversarial network. Vis Comput (2021).
